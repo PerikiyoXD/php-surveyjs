@@ -5,7 +5,7 @@ namespace SurveyJsPhpSdk\Parser\Element;
 
 use SurveyJsPhpSdk\Model\Element\CommentElement;
 
-class CommentElementParser extends DefaultElementParserAbstract
+class CommentElementParser extends AbstractDefaultElementParser
 {
     protected function setupElement(): void
     {

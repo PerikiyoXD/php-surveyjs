@@ -4,7 +4,7 @@ namespace SurveyJsPhpSdk\Model\Element;
 
 use SurveyJsPhpSdk\Model\TextModel;
 
-class TextElement extends ElementAbstract
+class TextElement extends AbstractElement
 {
     /**
      * @var string

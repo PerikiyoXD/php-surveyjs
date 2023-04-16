@@ -2,7 +2,7 @@
 
 namespace SurveyJsPhpSdk\Model;
 
-class TemplateModel
+class TemplateModel extends AbstractBaseModel
 {
     /**
      * @var PageModel[]
@@ -28,6 +28,11 @@ class TemplateModel
      * @var string
      */
     private $showQuestionNumbers;
+
+    /**
+     * @var string
+     */
+    private $locale;
 
     /**
      * @return PageModel[]
@@ -106,6 +111,18 @@ class TemplateModel
     public function setShowQuestionNumbers(string $showQuestionNumbers): self
     {
         $this->showQuestionNumbers = $showQuestionNumbers;
+
+        return $this;
+    }
+
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
 
         return $this;
     }

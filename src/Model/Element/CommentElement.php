@@ -4,7 +4,7 @@ namespace SurveyJsPhpSdk\Model\Element;
 
 use SurveyJsPhpSdk\Model\ResultModel;
 
-class CommentElement extends ElementAbstract
+class CommentElement extends AbstractElement
 {
     public function isValidResult(ResultModel $result): bool
     {

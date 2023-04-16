@@ -6,14 +6,18 @@ use SurveyJsPhpSdk\Configuration\ElementConfigurationInterface;
 use SurveyJsPhpSdk\Exception\ElementConfigurationErrorException;
 use SurveyJsPhpSdk\Exception\MissingElementConfigurationException;
 use SurveyJsPhpSdk\Model\Element\ElementInterface;
+use SurveyJsPhpSdk\Parser\Element\BooleanElementParser;
 use SurveyJsPhpSdk\Parser\Element\CheckboxElementParser;
 use SurveyJsPhpSdk\Parser\Element\CommentElementParser;
+use SurveyJsPhpSdk\Parser\Element\DynamicPanelElementParser;
+use SurveyJsPhpSdk\Parser\Element\MultipleChoiceMatrixElementParser;
+use SurveyJsPhpSdk\Parser\Element\PanelElementParser;
 use SurveyJsPhpSdk\Parser\Element\RadioGroupElementParser;
 use SurveyJsPhpSdk\Parser\Element\RatingElementParser;
+use SurveyJsPhpSdk\Parser\Element\SingleChoiceMatrixElementParser;
 use SurveyJsPhpSdk\Parser\Element\TextElementParser;
 
-class ElementFactory
-{
+class ElementFactory {
     public const CHECKBOX_TYPE = 'checkbox';
     public const COMMENT_TYPE = 'comment';
     public const RADIO_GROUP_TYPE = 'radiogroup';
@@ -32,13 +36,21 @@ class ElementFactory
     public const MONTH_TYPE = 'month';
     public const WEEK_TYPE = 'week';
     public const URL_TYPE = 'url';
+    public const BOOLEAN_TYPE = 'boolean';
+    public const PANEL_TYPE = 'panel';
+    public const DYNAMIC_PANEL_TYPE = 'paneldynamic';
+    public const MATRIX_TYPE = 'matrix';
+    public const MATRIX_DROPDOWN_TYPE = 'matrixdropdown';
 
     public const KNOWN_TYPES = [
-        self::COMMENT_TYPE,
         self::CHECKBOX_TYPE,
+        self::COMMENT_TYPE,
         self::RADIO_GROUP_TYPE,
         self::RATING_TYPE,
-        self::TEXT_TYPE
+        self::TEXT_TYPE,
+        self::PANEL_TYPE,
+        self::BOOLEAN_TYPE,
+        self::MATRIX_TYPE,
     ];
 
     public const TEXT_SUBTYPES = [
@@ -67,8 +79,7 @@ class ElementFactory
      *
      * @return ElementInterface
      */
-    public static function create(\stdClass $element, ?ElementConfigurationInterface $configuration): ElementInterface
-    {
+    public static function create(\stdClass $element, ?ElementConfigurationInterface $configuration): ElementInterface {
         switch ($element->type) {
             case self::CHECKBOX_TYPE:
                 $parser = new CheckboxElementParser();
@@ -84,6 +95,18 @@ class ElementFactory
                 return $parser->parse($element);
             case self::TEXT_TYPE:
                 $parser = new TextElementParser();
+                return $parser->parse($element);
+            case self::BOOLEAN_TYPE:
+                $parser = new BooleanElementParser();
+                return $parser->parse($element);
+            case self::PANEL_TYPE:
+                $parser = new PanelElementParser();
+                return $parser->parse($element);
+            case self::DYNAMIC_PANEL_TYPE:
+                $parser = new DynamicPanelElementParser();
+                return $parser->parse($element);
+            case self::MATRIX_TYPE:
+                $parser = new SingleChoiceMatrixElementParser();
                 return $parser->parse($element);
             default:
                 if ($element->type === $configuration->getType()) {

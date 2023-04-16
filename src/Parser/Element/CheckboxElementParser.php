@@ -5,7 +5,7 @@ namespace SurveyJsPhpSdk\Parser\Element;
 
 use SurveyJsPhpSdk\Model\Element\CheckboxElement;
 
-class CheckboxElementParser extends ChoiceElementParserAbstract
+class CheckboxElementParser extends AbstractChoiceElementParser
 {
     protected function setupElement(): void
     {

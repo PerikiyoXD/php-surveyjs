@@ -5,7 +5,7 @@ namespace SurveyJsPhpSdk\Parser\Element;
 use SurveyJsPhpSdk\Model\Element\ElementInterface;
 use SurveyJsPhpSdk\Parser\ChoiceParser;
 
-abstract class ChoiceElementParserAbstract extends DefaultElementParserAbstract
+abstract class AbstractChoiceElementParser extends AbstractDefaultElementParser
 {
     /**
      * @param \stdClass $data

@@ -6,7 +6,7 @@ namespace SurveyJsPhpSdk\Tests\Fake;
 
 use SurveyJsPhpSdk\Configuration\ElementConfigurationInterface;
 use SurveyJsPhpSdk\Model\Element\ElementInterface;
-use SurveyJsPhpSdk\Parser\Element\ElementParserAbstract;
+use SurveyJsPhpSdk\Parser\Element\AbstractElementParser;
 
 class FakeCustomElementConfiguration implements ElementConfigurationInterface
 {
@@ -20,7 +20,7 @@ class FakeCustomElementConfiguration implements ElementConfigurationInterface
         return new FakeCustomElementModel();
     }
 
-    public function getParser(): ElementParserAbstract
+    public function getParser(): AbstractElementParser
     {
         return new FakeCustomElementParser();
     }

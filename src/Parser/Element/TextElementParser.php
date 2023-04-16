@@ -8,7 +8,7 @@ use SurveyJsPhpSdk\Factory\ElementFactory;
 use SurveyJsPhpSdk\Model\Element\TextElement;
 use SurveyJsPhpSdk\Parser\TextParser;
 
-class TextElementParser extends DefaultElementParserAbstract
+class TextElementParser extends AbstractDefaultElementParser
 {
     protected function setupElement(): void
     {
@@ -19,6 +19,7 @@ class TextElementParser extends DefaultElementParserAbstract
     {
         parent::configure($data);
 
+        // If data->inputType is not a valid input type, throw an exception
         if (isset($data->inputType) && !in_array($data->inputType, ElementFactory::TEXT_SUBTYPES)) {
             throw new InvalidTextElementTypeException($data->inputType);
         }
@@ -34,11 +35,13 @@ class TextElementParser extends DefaultElementParserAbstract
             ElementFactory::TIME_TYPE
         );
 
+        // Parse placeholder text
         if (isset($data->placeholder)) {
             $textParser = new TextParser();
             $this->element->setPlaceholder($textParser->parse($data->placeholder));
         }
 
+        // Parse input type
         if (isset($data->inputType)) {
             $this->element->setInputType($data->inputType);
 

@@ -11,8 +11,7 @@ use SurveyJsPhpSdk\Exception\PageDataNotFoundException;
 use SurveyJsPhpSdk\Factory\ElementFactory;
 use SurveyJsPhpSdk\Model\TemplateModel;
 
-class TemplateParser
-{
+class TemplateParser {
     /**
      * @var ElementConfigurationInterface[]
      */
@@ -25,8 +24,7 @@ class TemplateParser
      *
      * @throws InvalidElementConfigurationException
      */
-    public function __construct(iterable $customConfigurations = [])
-    {
+    public function __construct(iterable $customConfigurations = []) {
         foreach ($customConfigurations as $customConfiguration) {
             if (($customConfiguration instanceof ElementConfigurationInterface) === false) {
                 throw new InvalidElementConfigurationException();
@@ -45,26 +43,47 @@ class TemplateParser
      *
      * @return TemplateModel
      */
-    public function parse(string $jsonTemplate): TemplateModel
-    {
+    public function parse(string $jsonTemplate): TemplateModel {
         $template = json_decode($jsonTemplate);
 
-        if (!isset($template->pages)) {
-            throw new PageDataNotFoundException();
-        }
-
+        // Create template model
         $surveyTemplateModel = new TemplateModel();
 
-        foreach ($template->pages as $page) {
-            $pageModel = (new PageParser())->parse($page);
+        // Parse title
+        if (isset($template->title)) {
+            $textParser = new TextParser();
+            $surveyTemplateModel->setTitle($textParser->parse($template->title));
+        }
 
-            foreach ($page->elements as $element) {
-                $config = $this->getConfigForElement($element);
+        // Parse description
+        if (isset($template->description)) {
+            $textParser = new TextParser();
+            $surveyTemplateModel->setDescription($textParser->parse($template->description));
+        }
 
-                $pageModel->addElement(ElementFactory::create($element, $config));
+        // Parse locale
+        if (isset($template->locale)) {
+            $surveyTemplateModel->setLocale($template->locale);
+        }
+
+        // Parse pages
+        if (isset($template->pages)) {
+            foreach ($template->pages as $page) {
+                $pageModel = (new PageParser())->parse($page);
+
+                // Parse elements in page
+                if (isset($page->elements)) {
+                    foreach ($page->elements as $element) {
+                        $config = $this->getConfigForElement($element);
+
+                        // Add element to page
+                        $pageModel->addElement(ElementFactory::create($element, $config));
+                    }
+                }
+
+                // Add page to template
+                $surveyTemplateModel->addPage($pageModel);
             }
-
-            $surveyTemplateModel->addPage($pageModel);
         }
 
         return $this->setDefaultProperties($surveyTemplateModel, $template);
@@ -78,8 +97,7 @@ class TemplateParser
      *
      * @return ElementConfigurationInterface|null
      */
-    private function getConfigForElement(\stdClass $element): ?ElementConfigurationInterface
-    {
+    private function getConfigForElement(\stdClass $element): ?ElementConfigurationInterface {
         if (!isset($element->type)) {
             throw new ElementTypeNotFoundException();
         }
@@ -101,8 +119,7 @@ class TemplateParser
      *
      * @return TemplateModel
      */
-    private function setDefaultProperties(TemplateModel $model, \stdClass $data): TemplateModel
-    {
+    private function setDefaultProperties(TemplateModel $model, \stdClass $data): TemplateModel {
         if (isset($data->showNavigationButtons)) {
             $model->setShowNavigationButtons($data->showNavigationButtons);
         }

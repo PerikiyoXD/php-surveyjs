@@ -4,9 +4,8 @@ namespace SurveyJsPhpSdk\Parser\Element;
 
 use SurveyJsPhpSdk\Parser\TextParser;
 
-abstract class DefaultElementParserAbstract extends ElementParserAbstract
+abstract class AbstractDefaultElementParser extends AbstractElementParser
 {
-
     protected function configure(\stdClass $data): void
     {
         parent::configure($data);
@@ -22,6 +21,10 @@ abstract class DefaultElementParserAbstract extends ElementParserAbstract
 
         if (isset($data->enableIf)) {
             $this->element->setEnableIf($data->enableIf);
+        }
+
+        if(isset($data->startWithNewLine)) {
+            $this->element->setStartWithNewLine($data->startWithNewLine);
         }
     }
 }

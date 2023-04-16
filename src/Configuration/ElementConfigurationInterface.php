@@ -3,7 +3,7 @@
 namespace SurveyJsPhpSdk\Configuration;
 
 use SurveyJsPhpSdk\Model\Element\ElementInterface;
-use SurveyJsPhpSdk\Parser\Element\ElementParserAbstract;
+use SurveyJsPhpSdk\Parser\Element\AbstractElementParser;
 
 interface ElementConfigurationInterface
 {
@@ -11,5 +11,5 @@ interface ElementConfigurationInterface
 
     public function getElement(): ElementInterface;
 
-    public function getParser(): ElementParserAbstract;
+    public function getParser(): AbstractElementParser;
 }

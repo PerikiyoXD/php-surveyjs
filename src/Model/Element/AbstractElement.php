@@ -5,7 +5,7 @@ namespace SurveyJsPhpSdk\Model\Element;
 use SurveyJsPhpSdk\Model\ResultModel;
 use SurveyJsPhpSdk\Model\TextModel;
 
-abstract class ElementAbstract implements ElementInterface
+abstract class AbstractElement implements ElementInterface
 {
     /**
      * @var string
@@ -26,6 +26,11 @@ abstract class ElementAbstract implements ElementInterface
      * @var string
      */
     private $enableIf;
+
+    /**
+     * @var boolean
+     */
+    private $startWithNewLine;
 
     public function getName(): string
     {
@@ -78,5 +83,15 @@ abstract class ElementAbstract implements ElementInterface
     public function isValidResult(ResultModel $result): bool
     {
         return $this->getName() === $result->getQuestion();
+    }
+
+    public function doesStartWithNewLine(): bool
+    {
+        return $this->startWithNewLine;
+    }
+
+    public function setStartWithNewLine(bool $startWithNewLine): void
+    {
+        $this->startWithNewLine = $startWithNewLine;
     }
 }

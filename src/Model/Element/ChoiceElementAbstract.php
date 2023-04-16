@@ -5,7 +5,7 @@ namespace SurveyJsPhpSdk\Model\Element;
 use SurveyJsPhpSdk\Model\ChoiceModel;
 use SurveyJsPhpSdk\Model\ResultModel;
 
-abstract class ChoiceElementAbstract extends ElementAbstract
+abstract class ChoiceElementAbstract extends AbstractElement
 {
     /**
      * @var string

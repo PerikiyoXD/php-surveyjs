@@ -4,7 +4,7 @@ namespace SurveyJsPhpSdk\Parser\Element;
 
 use SurveyJsPhpSdk\Model\Element\RatingElement;
 
-class RatingElementParser extends ChoiceElementParserAbstract
+class RatingElementParser extends AbstractChoiceElementParser
 {
 
     protected function setupElement(): void

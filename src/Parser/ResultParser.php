@@ -4,7 +4,7 @@
 namespace SurveyJsPhpSdk\Parser;
 
 use SurveyJsPhpSdk\Exception\InvalidSurveyResultException;
-use SurveyJsPhpSdk\Model\Element\ElementAbstract;
+use SurveyJsPhpSdk\Model\Element\AbstractElement;
 use SurveyJsPhpSdk\Model\PageModel;
 use SurveyJsPhpSdk\Model\ResultModel;
 use SurveyJsPhpSdk\Model\TemplateModel;
@@ -52,7 +52,7 @@ class ResultParser
          */
         foreach ($pages as $page) {
             foreach ($page->getElements() as $element) {
-                if ($element instanceof ElementAbstract && $element->isValidResult($result)) {
+                if ($element instanceof AbstractElement && $element->isValidResult($result)) {
                     //exit at first validation match because there should be 1 to 1 correspondence between results and elements
                     return true;
                 }

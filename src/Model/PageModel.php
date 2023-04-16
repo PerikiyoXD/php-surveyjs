@@ -2,31 +2,15 @@
 
 namespace SurveyJsPhpSdk\Model;
 
+use SurveyJsPhpSdk\Model\AbstractElementModel;
 use SurveyJsPhpSdk\Model\Element\ElementInterface;
 
-class PageModel
+class PageModel extends AbstractElementModel
 {
-    /**
-     * @var string
-     */
-    private $name;
-
     /**
      * @var ElementInterface[]
      */
     private $elements = [];
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     /**
      * @return ElementInterface[]

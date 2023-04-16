@@ -4,9 +4,9 @@
 namespace SurveyJsPhpSdk\Tests\Fake;
 
 
-use SurveyJsPhpSdk\Parser\Element\ElementParserAbstract;
+use SurveyJsPhpSdk\Parser\Element\AbstractElementParser;
 
-class FakeCustomElementParser extends ElementParserAbstract
+class FakeCustomElementParser extends AbstractElementParser
 {
     protected function setupElement(): void
     {
